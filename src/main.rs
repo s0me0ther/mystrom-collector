@@ -20,7 +20,7 @@ async fn main() {
     let results = futures::future::join_all(futures).await;
     let json_results: Vec<Value> = results.into_iter().filter_map(Result::ok).collect();
     
-    println!("{}", serde_json::to_string_pretty(&json_results).unwrap());
+    println!("{}", serde_json::to_string(&json_results).unwrap());
 }
 
 async fn fetch_json(ip: String, url: String) -> Result<Value, reqwest::Error> {
