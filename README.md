@@ -4,9 +4,10 @@ The **MyStrom Collector** is a simple command-line utility that retrieves the cu
 
 ## **Features**
 
-- Collects real-time data from multiple MyStrom adapters
-- Returns a JSON response with detailed reports
-- Supports multiple adapter IP addresses in a single command
+- Collects real-time data from multiple MyStrom adapters concurrently.
+- Returns a JSON response with detailed reports, including the adapter's IP address.
+- Supports multiple adapter IP addresses in a single command.
+- Handles errors gracefully and includes timeouts to prevent hanging requests.
 
 ## **Usage**
 
@@ -16,7 +17,7 @@ To use the **MyStrom Collector**, simply provide one or more IP addresses of the
 ./mystrom-collector 192.168.42.13 192.168.42.14 192.168.42.15 [...]
 ```
 
-### Example Command
+### **Example Commands**
 
 ```bash
 ./mystrom-collector 192.168.42.13
@@ -24,7 +25,7 @@ To use the **MyStrom Collector**, simply provide one or more IP addresses of the
 
 This will fetch the report for the MyStrom adapter with the IP `192.168.42.13`.
 
-## **Returned Data**
+### **Output**
 
 The output is a JSON array containing the report for each adapter, with the following structure:
 
@@ -62,3 +63,45 @@ The output is a JSON array containing the report for each adapter, with the foll
   }
 ]
 ```
+
+### **Error Handling**
+
+If a request fails (e.g., due to a timeout or network issue), the program will log an error message to stderr but continue processing the remaining IP addresses. The final stdout JSON output will only include successfully retrieved reports.
+
+---
+
+## **Installation**
+
+1. Ensure you have Rust installed. If not, follow the instructions at [rustup.rs](https://rustup.rs/).
+2. Clone this repository:
+   ```bash
+   git clone https://github.com/your-repo/mystrom-collector.git
+   cd mystrom-collector
+   ```
+3. Build the project:
+   ```bash
+   cargo build --release
+   ```
+4. The binary will be located at `./target/release/mystrom-collector`.
+
+---
+
+## **Dependencies**
+
+- [reqwest](https://crates.io/crates/reqwest): For making HTTP requests.
+- [tokio](https://crates.io/crates/tokio): For asynchronous runtime and concurrency.
+- [serde_json](https://crates.io/crates/serde_json): For JSON serialization and deserialization.
+
+---
+
+## **Contributing**
+
+Contributions are welcome! If you find a bug or have a feature request, please open an issue or submit a pull request.
+
+---
+
+## **License**
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+---
